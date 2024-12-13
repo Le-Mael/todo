@@ -34,7 +34,7 @@ jobs:
   build-backend:
     runs-on: ubuntu-latest
     defaults:
-     run:
+     run: 
       working-directory: ./backend
     steps:
       - uses: actions/checkout@v4
@@ -85,3 +85,7 @@ jobs:
       - name: Deploying Backend...
         run: | 
          curl --request GET '${{ secrets.BACKEND_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
+         curl --request GET "$BACKEND_URL" \ --header "Authorization: Bearer $BACKEND_TOKEN"
+        env:
+         BACKEND_URL: ${{ secrets.DEPLOY_BACKEND_URL }}
+         BACKEND_TOKEN: ${{ secrets.BACKEND_API_TOKEN }}
